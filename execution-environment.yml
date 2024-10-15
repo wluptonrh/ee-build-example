@@ -1,0 +1,28 @@
+---
+version: 3
+
+images:
+  base_image:
+    name: registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel8:latest
+
+dependencies:
+  galaxy:
+    collections:
+    - community.general
+    - kubernetes.core
+    - kubevirt.core
+    - datadog.dd
+
+  python: requirements.txt
+
+#Uncomment if you are building from the RHEL ubi or minimal ee image
+options:
+   package_manager_path: /usr/bin/microdnf
+
+additional_build_steps:
+  prepend_base:
+    - ENV PKGMGR_OPTS "--nodocs --setopt install_weak_deps=0 --enablerepo=rhocp-4.17-for-rhel-8-x86_64-rpms"
+  prepend_builder:
+    - ENV PKGMGR_OPTS "--nodocs --setopt install_weak_deps=0 --enablerepo=rhocp-4.17-for-rhel-8-x86_64-rpms"
+
+#ansible-builder build --tag=my-custom-ee
