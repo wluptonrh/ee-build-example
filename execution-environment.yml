@@ -12,6 +12,8 @@ dependencies:
     - kubernetes.core
     - kubevirt.core
     - datadog.dd
+    - community.vmware
+    - ansible.windows
 
   python: requirements.txt
 
